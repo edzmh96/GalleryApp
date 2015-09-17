@@ -1,0 +1,76 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_photos_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize"
+    tools:context="dtancompany.gallerytest.MainActivity">
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sliding_add_panel"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="0dp"
+        sothree:umanoParalaxOffset="100dp"
+        sothree:umanoDragView="@+id/dragView"
+        sothree:umanoOverlay="true">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <GridView android:id="@+id/grid_view"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:numColumns="auto_fit"
+                    android:gravity="center"
+                    android:stretchMode="columnWidth"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </FrameLayout>
+
+
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/add_keyword_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:clipToPadding="false"
+            android:padding="16dp">
+            <EditText
+                android:id="@+id/edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="64"
+                android:hint="@string/edit_text_hint"
+                android:background="@android:color/transparent"
+                android:textSize="25sp"
+                android:layout_centerHorizontal="true"/>
+
+            <ImageButton
+                android:id="@+id/add"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/plus"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitCenter"
+                android:layout_below="@id/edit_text"/>
+        </RelativeLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+    <FrameLayout
+        android:id="@+id/listFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

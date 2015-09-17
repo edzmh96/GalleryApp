@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="theme_color_choices">
+        <item>Cyan</item>
+        <item>Indigo</item>
+        <item>Red</item>
+        <item>Amber</item>
+        <item>Orange</item>
+        <item>Black</item>
+
+
+    </string-array>
+
+
+</resources>

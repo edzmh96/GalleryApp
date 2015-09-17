@@ -1,0 +1,166 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/photos_fragment_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cyan50"
+    android:clipToPadding="false"
+    >
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="@dimen/keyword_panel_height"
+        sothree:umanoShadowHeight="4dp"
+        sothree:umanoParalaxOffset="0dp"
+        sothree:umanoOverlay="true"
+        sothree:umanoFadeColor="@android:color/transparent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"/>
+            <dtancompany.gallerytest.TouchImageView
+                android:id="@+id/face_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/panel_root"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:elevation="4dp"
+            android:clipToPadding="false"
+            android:gravity="center|top"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            >
+
+            <RelativeLayout
+                android:id="@+id/drag_view"
+
+                android:layout_height="@dimen/keyword_panel_height"
+                android:layout_width="match_parent">
+                <!-- temporary image -->
+                <ImageView
+                    android:id="@+id/clickable_image"
+                    android:layout_width="@dimen/keyword_panel_height"
+                    android:layout_height="@dimen/keyword_panel_height"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_action_collapse"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/edit_text_container"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:background="@android:color/transparent">
+
+                <EditText
+                    android:id="@+id/keyword_edit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="15dp"
+                    android:hint="@string/keyword_edit_text_hint"
+                    android:textColorHint="@color/white"
+                    android:layout_centerHorizontal="true"
+                    android:background="@null"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:padding="0dp"/>
+
+            </RelativeLayout>
+            <!--
+            <dtancompany.gallerytest.MyScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/keyword_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:background="@android:color/holo_red_dark"
+                    android:padding="16dp">
+                </RelativeLayout>
+
+            </dtancompany.gallerytest.MyScrollView>
+            -->
+
+            <LinearLayout
+                android:id="@+id/button_container"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+
+                android:gravity="top"
+                android:layout_gravity="end">
+
+
+                <ImageButton
+                    android:id="@+id/share_button"
+                    android:src="@drawable/share"
+                    android:elevation="12dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerInside"
+                    android:paddingLeft="10dp"
+                    android:background="@android:color/transparent"/>
+
+                <ImageButton
+                    android:id="@+id/facebook_button"
+                    android:src="@drawable/facebook"
+                    android:elevation="12dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerInside"
+                    android:paddingLeft="10dp"
+                    android:background="@android:color/transparent"/>
+
+                <ImageButton
+                    android:id="@+id/twitter_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:elevation="12dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/tw__ic_logo_blue"/>
+
+                <ImageButton
+                    android:id="@+id/instagram_button"
+                    android:src="@drawable/instagram"
+                    android:background="@android:color/transparent"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:elevation="12dp"
+                    android:paddingLeft="10dp"
+                    android:scaleType="centerInside"/>
+                <ImageButton
+                    android:id="@+id/detect_faces_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:elevation="12dp"
+                    android:paddingLeft="10dp"
+                    android:scaleType="centerInside"
+
+                    android:src="@drawable/face"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+</RelativeLayout>

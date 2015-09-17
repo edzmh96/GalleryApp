@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item android:id="@+id/action_add_keyword" android:title="@string/action_add_keyword"
+        android:icon="@drawable/ic_action_new"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:visible="false"/>
+
+    <item android:id="@+id/action_remove_iim" android:title="@string/action_remove_iim"
+        android:icon="@drawable/ic_action_new"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:visible="false"/>
+
+    <item android:id="@+id/action_rebuild_database" android:title="@string/action_rebuild_database"
+        android:showAsAction="never"/>
+    <item android:id="@+id/action_choose_theme" android:title="@string/choose_color_theme"
+        android:showAsAction="never"/>
+</menu>

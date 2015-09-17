@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/jp.co.cyberagent.android.gpuimage/gpuimage-library/1.2.3/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a93454051575c128e7819b068748c7a9b95c6857">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-ec1a35de91608874026101b39d19a6c0452e0e24.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-c52fb07592540129f506b13f475b9396c3968daf.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-abce7bc0d72683b2719f7dd3b1022defe5cce7ed.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-ui/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73e3dcd1c6363340af17e78967e6ed27d585d52d">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-d4c8bc5b572507f3002a7937ce548774c2071455.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.daimajia.easing/library/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d7e947f993bf32a00fcb3078cdda8bb11c930afb">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-f56380ccf6e89b6a8d89de06b962723bd81293dc.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter-core/1.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a9f5c30c22dc9a623078f85000c787cd191aa35f">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-48efc6f7905b6c7d37052297eccc306fc4dd41e7.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit/retrofit/1.6.1/efb0a36546aa8857ab8df358b106c1817e03cbee/retrofit-1.6.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="efb0a36546aa8857ab8df358b106c1817e03cbee">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/retrofit-1.6.1-783807194bade747e5f6ce2fee305db63ed0758a.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.4/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f7dc6b43d7c7f3d94e98531aef88269f9ed2a37b">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-8e2408a962e5fa9d83fa47d52e4feb53c7628cdc.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/jp.wasabeef/picasso-transformations/1.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0869a901112b25e3cfd018e96fe5cb53345ebd60">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-81204cac1a8549521efa61f139901c9400843391.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a78bfd2ec508b123ee7c03f4006ba7996ef9a8dc">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-1fb430208e93e28936f7217d59668f28a932ce0e.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-49a015bfd4ba21684bd6276fcf3c49a60ffcde71.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/.m2/repository/com/nmote/iim4j/nmote-iim4j/1.1.2/nmote-iim4j-1.1.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a14ddb9b7d673d66c0500025cf7f15b38d9b54ce">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/nmote-iim4j-1.1.2-1115fa9ceaeb6ef95457676de33778ed38ffaeca.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.digits.sdk.android/digits/1.6.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="85dbcb10f2e04aa08bcd7b4405e4a7fec615760d">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-216ecb247aefffdbd6e54d3cc7e781480ddcc587.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/bolts-android-1.2.0-7fab4d872f352367cbc8ba60f6ad14c0af221764.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.sothree.slidinguppanel/library/3.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="76351d3022d4a2803789c01046aa0aa4b0d5d134">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-b1e1ac1dbc0243b0dd86d6801307e7d5806b8413.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.4/5fe28b9518e58819180a43a850fbc0dd24b7c050/commons-lang3-3.4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5fe28b9518e58819180a43a850fbc0dd24b7c050">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/commons-lang3-3.4-96c36e30f8bf6718ea64702868b8564525088170.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.twitter.sdk.android/tweet-composer/0.8.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="157015930713d0411b69a76606f306c9a2c11af3">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-f51d802a2448a476ba9add47d91bed90d44f5409.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/gson-2.2.4-7a4e80d3cf7c4a24d2d588a50c7eb4e5fa936314.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.twitter.sdk.android/twitter/1.6.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2bd26de12f5ea29d4cabc6e84045de04cb615680">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-d02a2e0e7ec91e027ea0b32266c6cf3a36677069.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/picasso-2.5.2-fe50ad6dca72e4c4bb5fadbeb01184cebacd3b9a.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/exploded-aar/com.daimajia.androidanimations/library/1.1.3/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8cec50fc9cc847bad0d6ed7d93814f4b34744521">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/classes-2a63e1225affef618fed5ace6c0bc4d73ac5fdf9.jar" />
+    </item>
+    <item
+        jar="/Users/Edward/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/Edward/workspace/AndroidApps/GalleryTest/app/build/intermediates/pre-dexed/debug/library-2.4.0-8da25774e13613ad1431d31f99912c26ace58732.jar" />
+    </item>
+
+</items>

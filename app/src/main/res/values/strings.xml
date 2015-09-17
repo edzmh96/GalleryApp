@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">GalleryTest</string>
+    <string name="button_text">Get pictures</string>
+    <string name="add_keyword_text">Add</string>
+    <string name="remove_iim_button_text">Remove</string>
+    <string name="read_keyword_text">Read keywords</string>
+    <string name="content_description">A chosen picture</string>
+    <string name="edit_text_hint">Enter keyword</string>
+    <string name="facebook_app_id">881721408568674</string>
+    <string name="search_hint">Search</string>
+    <string name="search_name">Type a name</string>
+
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_remove_iim_title">Warning</string>
+    <string name="dialog_remove_iim_message">You\'ll lose all keywords from the selected images!</string>
+
+    <string name="action_rebuild_database">Rebuild database</string>
+    <string name="action_add_keyword">Add keyword</string>
+    <string name="action_remove_iim">Remove metadata</string>
+
+    <string name="keyword_edit_text_hint">Enter a tag</string>
+
+    <string name="detect_faces">Detect Faces!</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="choose_color_theme">Change Colors</string>
+    <string name="choose_color_dialog">Choose a theme color</string>
+    <string name="ok">Ok</string>
+</resources>

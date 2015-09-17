@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="blue" type="color">#FF2196f3</item>
+    <item name="purple" type="color">#FF9c27b0</item>
+    <item name="green" type="color">#FF4caf50</item>
+    <item name="orange" type="color">#FFff9800</item>
+    <item name="red" type="color">#FFf44336</item>
+    <item name="yellow" type="color">#ffffeb3b</item>
+
+    <item name="darkblue" type="color">#FF1565c0</item>
+    <item name="darkpurple" type="color">#FF6a1b9a</item>
+    <item name="darkgreen" type="color">#FF2e7d32</item>
+    <item name="darkorange" type="color">#FFef6c00</item>
+    <item name="darkred" type="color">#FFc62828</item>
+
+    <item name="gray" type="color">#ff9e9e9e</item>
+    <item name="darkgray" type="color">#ff424242</item>
+    <item name="lightgray" type="color">#ffe0e0e0</item>
+    <item name="white" type="color">#ffffffff</item>
+    <item name="black" type="color">#ff000000</item>
+    <item name="cyan200" type="color">#80DEEA</item>
+    <item name="cyan300" type="color">#4DD0E1</item>
+    <item name="cyan400" type="color">#26c6da</item>
+
+
+    <item name="transparent" type="color">#00000000</item>
+
+    <item name="panel_color_2" type="color">@color/cyan400</item>
+
+    <integer-array name="androidcolors">
+        <item>@color/blue</item>
+        <item>@color/purple</item>
+        <item>@color/green</item>
+        <item>@color/orange</item>
+        <item>@color/red</item>
+
+        <item>@color/darkblue</item>
+        <item>@color/darkpurple</item>
+        <item>@color/darkgreen</item>
+        <item>@color/darkorange</item>
+        <item>@color/darkred</item>
+
+        <item>@color/gray</item>
+        <item>@color/darkgray</item>
+        <item>@color/lightgray</item>
+        <item>@color/white</item>
+        <item>@color/black</item>
+    </integer-array>
+
+
+    <!-- these are app theme colors -->
+    <!-- cyan -->
+    <item name="cyan500" type="color">#00BCD4</item>
+    <item name="cyan500clear" type="color">#c000BCD4</item>
+    <item name="cyan50" type="color">#E0F7FA</item>
+    <item name="cyan100" type="color">#B2EBF2</item>
+    <item name="cyan2transparent" type="color">#B2EBF2</item>
+    <drawable name="cyan500drawable">#00BCD4</drawable>
+
+    <!-- indigo -->
+    <item name="indigo500" type="color">#3F51B5</item>
+    <item name="indigo500clear" type="color">#c03F51B5</item>
+    <item name="indigo50" type="color">#E8EAF6</item>
+    <item name="indigo100" type="color">#C5CAE9</item>
+    <item name="indigo2transparent" type="color">#C5CAE9</item>
+    <drawable name="indigo500drawable">#3F51B5</drawable>
+
+    <!-- Red -->
+    <item name="red500" type="color">#F44336</item>
+    <item name="red500clear" type="color">#c0F44336</item>
+    <item name="red50" type="color">#FFEBEE</item>
+    <item name="red100" type="color">#FFCDD2</item>
+    <item name="red2transparent" type="color">#FFCDD2</item>
+    <drawable name="red500drawable">#F44336</drawable>
+
+    <!-- Amber -->
+    <item name="amber500" type="color">#FFC107</item>
+    <item name="amber500clear" type="color">#c0FFC107</item>
+    <item name="amber50" type="color">#FFF8E1</item>
+    <item name="amber100" type="color">#FFECB3</item>
+    <item name="amber2transparent" type="color">#FFECB3</item>
+    <drawable name="amber500drawable">#FFC107</drawable>
+
+
+
+
+
+
+</resources>
