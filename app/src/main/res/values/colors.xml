@@ -82,6 +82,23 @@
     <item name="amber2transparent" type="color">#FFECB3</item>
     <drawable name="amber500drawable">#FFC107</drawable>
 
+    <!-- Orange -->
+    <item name="orange500" type="color">#FF5722</item>
+    <item name="orange500clear" type="color">#c0FF5722</item>
+    <item name="orange50" type="color">#FBE9E7</item>
+    <item name="orange100" type="color">#FFCCBC</item>
+    <item name="orange2transparent" type="color">#FFCCBC</item>
+    <drawable name="orange500drawable">#FF5722</drawable>
+
+    <!-- Black -->
+    <item name="black500" type="color">#000000</item>
+    <item name="black500clear" type="color">#c0000000</item>
+    <item name="black50" type="color">#FAFAFA</item>
+    <item name="black100" type="color">#E0E0E0</item>
+    <item name="black2transparent" type="color">#E0E0E0</item>
+    <drawable name="black500drawable">#000000</drawable>
+
+
 
 
 

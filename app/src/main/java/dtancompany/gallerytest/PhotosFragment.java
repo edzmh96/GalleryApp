@@ -161,11 +161,15 @@ public class PhotosFragment extends android.app.Fragment implements GestureDetec
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // sets actionbar/layout
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_USE_LOGO);
         actionBar.setBackgroundDrawable(actionBarColor);
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_photos, container, false);
+
+        //sets reference to pager view
         pager = (ViewPager) layout.findViewById(R.id.pager);
+
+        //sets up adapter for pager
         adapter = new ImagePagerAdapter(activity.getSupportFragmentManager(),images);
         pager.setAdapter(adapter);
         pager.setCurrentItem(position);
@@ -179,8 +183,10 @@ public class PhotosFragment extends android.app.Fragment implements GestureDetec
             }
         });
 
+        //image path of selected activity from image is saved
         final String imagePath = images.get(position);
         currentImageFile = new File(imagePath);
+
         mDetector = new GestureDetectorCompat(activity, this);
         mDetector.setOnDoubleTapListener(this);
 
@@ -196,6 +202,7 @@ public class PhotosFragment extends android.app.Fragment implements GestureDetec
         keywordContainer = new RelativeLayout(activity);
         keywordContainer.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
         //keywordContainer.setBackgroundColor(getResources().getColor(R.color.panel_color_1));
         int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, activity.getResources().getDisplayMetrics());
         int paddingTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, activity.getResources().getDisplayMetrics());
@@ -295,7 +302,7 @@ public class PhotosFragment extends android.app.Fragment implements GestureDetec
         fullImg.setOnTouchListener(this);
 
 
-        Picasso.with(activity)
+        c.with(activity)
                 .load(imageFile)
                 .placeholder(activity.fullPlaceholder)
                             //.transform(new BitmapTransform(width, height))

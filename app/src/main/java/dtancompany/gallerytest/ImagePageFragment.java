@@ -2,6 +2,10 @@ package dtancompany.gallerytest;
 
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
@@ -17,9 +21,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
-/**
- * Created by david on 2015-08-11.
- */
 public class ImagePageFragment extends android.support.v4.app.Fragment
         implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener,
         View.OnTouchListener{
@@ -55,15 +56,28 @@ public class ImagePageFragment extends android.support.v4.app.Fragment
         fullImg = (TouchImageView) v.findViewById(R.id.full_img);
         fullImg.setBackgroundColor(activity.color50);
         final File imageFile = new File (mPath);
-        final int width = 1024; //arbitrarily picked
-        final int height = 1024;
+
+        final int width = 2048; //arbitrarily picked
+        final int height = 2048;
 
         Activity activity = getActivity();
-        Drawable placeholder = activity.getResources().getDrawable(R.drawable.shape_clear, null);
+
+        Drawable b;
+        if(this.activity.openFromHere){
+            b = this.activity.fullPlaceholder;
+            this.activity.openFromHere = false;
+
+        }else if(!this.activity.openFromHere) {
+            Bitmap d = BitmapFactory.decodeFile(mPath);
+            d = resizeImage(d, 240);
+            b = new BitmapDrawable(d);
+
+        }
+
 
         Picasso.with(activity)
                 .load(imageFile)
-                .placeholder(placeholder)
+                .placeholder(b)
                 .resize(width, height)
                 .centerInside()
                 .into(fullImg, new Callback() {
@@ -105,6 +119,44 @@ public class ImagePageFragment extends android.support.v4.app.Fragment
     public void onShowPress(MotionEvent e) {
 
     }
+
+    private Drawable resize(Drawable image) {
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 50, 50, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
+    }
+    private Bitmap resize(Bitmap b){
+        return Bitmap.createScaledBitmap(b, 50, 50, false);
+    }private Bitmap resizeImage(Bitmap bitmap, int newSize){
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        int newWidth = 0;
+        int newHeight = 0;
+
+        if(width > height){
+            newWidth = newSize;
+            newHeight = (newSize * height)/width;
+        } else if(width < height){
+            newHeight = newSize;
+            newWidth = (newSize * width)/height;
+        } else if (width == height){
+            newHeight = newSize;
+            newWidth = newSize;
+        }
+
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                width, height, matrix, true);
+
+        return resizedBitmap;
+    }
+
 
     @Override
     public boolean onSingleTapUp(MotionEvent e) {

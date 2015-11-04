@@ -17,7 +17,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
@@ -77,6 +76,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected PhotosFragment currentFragment;
     ArrayList<String> images;
     Drawable fullPlaceholder;
+    boolean openFromHere = true;
 
     Activity activity;
     HashSet<File> selected = new HashSet<>();
@@ -141,12 +141,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         */
 
 
-        activity = this;
+        // Gets keywords with asynctask
 
+
+        activity = this;
         //get Theme color, default is 0(cyan)
         settings = PreferenceManager.getDefaultSharedPreferences(this);
         chosenThemeColor = settings.getInt(THEME_COLOR, 0);
         Log.d("Preferences", String.valueOf(chosenThemeColor));
+
+        if(settings.getBoolean("first_time", true)){
+            Log.d("TEST", "first time");
+
+            settings.edit().putBoolean("first_time", false).commit();
+        }
 
         inflater = getLayoutInflater();
         Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandler());
@@ -158,7 +166,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         gridView = (GridView) findViewById(R.id.grid_view);
      //   gridView.setBackgroundColor(color50);
+
+        //Finds the sliding panel
         slidingUpPanelLayout = (SlidingUpPanelLayout) root.findViewById(R.id.sliding_add_panel);
+        // Sets panel listener
         slidingUpPanelLayout.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
             public void onPanelSlide(View view, float v) {
@@ -198,12 +209,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }
         });
 
+        //Finds the necessary panel views
         addKeywordPanel = (RelativeLayout) slidingUpPanelLayout.findViewById(R.id.add_keyword_panel);
         addKeywordButton = (ImageButton) slidingUpPanelLayout.findViewById(R.id.add);
         addKeywordButton.setOnClickListener(this);
         addKeywordField = (EditText) slidingUpPanelLayout.findViewById(R.id.edit_text);
-     //   addKeywordField.setTextColor(color50);
-    //    addKeywordField.setHintTextColor(color50);
         setFilters(addKeywordField);
         actionBar = getActionBar();
 
@@ -212,8 +222,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         TwitterAuthConfig authConfig = new TwitterAuthConfig("consumerKey", "consumerSecret");
         Fabric.with(this, new Twitter(authConfig));
         inflater = getLayoutInflater();
-        images = getAllShownImagesPath(this);
+
+        images = getAllShownImagesPath(activity);
         Collections.reverse(images);
+
+        try {
+            task = (DatabaseTask) new DatabaseTask().execute(new DatabaseTaskParams(activity, images));
+            helper = task.get();
+        } catch (Exception e) {
+            Log.e("DatabaseTask", "stack trace", e);
+        }
+
+        suggestions = helper.getKeywords();
+
+
+
+
         selected.clear();
 
         searchItemLayout = (RelativeLayout) inflater.inflate(R.layout.search_item, null);
@@ -221,42 +245,21 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         searchItem = (TextView) searchItemLayout.findViewById(R.id.search_item);
       //  searchItem.setBackgroundColor(color500);
         searchItem.setOnClickListener(this);
-
-        try {
-            task = (DatabaseTask) new DatabaseTask().execute(new DatabaseTaskParams(activity, images));
-            helper = task.get();
-
-        } catch (Exception e) {
-            Log.e("DatabaseTask", "stack trace", e);
-        }
-
-        suggestions = helper.getKeywords();
-
-        //root is fragment layout root, frame layout
-        // ((FrameLayout) root).getForeground().setAlpha(0);
+        //Sets gray on image click filter
         filter = new PorterDuffColorFilter(getResources().getColor(R.color.gray), PorterDuff.Mode.MULTIPLY);
-        //placeholder = new ColorDrawable(getResources().getColor(R.color.cyan50));
-        //placeholder = getResources().getDrawable(R.drawable.image, null);
 
-       // placeholder = new ColorDrawable(color100);
-       // cyan = new ColorDrawable(color500);
-       // onPressedColor = new ColorDrawable(color500);
-
-
+        //Sets image size/space sizes for gridview
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         imageSize = (int) (displayMetrics.widthPixels / displayMetrics.density); //(image size is in dips)
-
         final int MIN_PIXELS = 2;
         spaceSize = (imageSize % 3)/2 + MIN_PIXELS;
-
         imageSize = (imageSize - MIN_PIXELS*2)/3; //16dp is padding
-
         imageSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, imageSize,
                 displayMetrics); //(image size now in pixels)
         spaceSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, spaceSize,
                 displayMetrics); //(space width now in pixels)
 
-
+        //sets adapters/listeners for the gridview
         gridView.setAdapter(new ImageAdapter(this));
         gridView.setOnItemClickListener(this);
         gridView.setOnItemLongClickListener(this);
@@ -269,7 +272,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO
                         | ActionBar.DISPLAY_SHOW_HOME
-                //| ActionBar.DISPLAY_HOME_AS_UP
         );
         selectLayout = inflater.inflate(R.layout.select_mode_actionbar, null);
         searchLayout = inflater.inflate(R.layout.search_box, null);
@@ -287,13 +289,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         textView.setClickable(true);
         textView.setFocusableInTouchMode(true);
         textView.setEnabled(true);
-        //textView.setTextColor(color50);
-        //textView.setHintTextColor(color50);
-        //textView.setHighlightColor(color50);
-        //textView.setLinkTextColor(color50);
-
-        // TODO: find another way to set the background resource of this item, this doesnt work
-        //textView.setDropDownBackgroundResource(color50);
 
 
 
@@ -331,8 +326,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         swipeRefreshLayout.setOnRefreshListener(this);
         fragmentView = inflater.inflate(R.layout.fragment_photos, null, false);
         numberSelected = (TextView) selectLayout.findViewById(R.id.number_selected);
-        //!!!
-        //numberSelected.setTextColor(color50);
 
         //new LoadViewTask().execute();
         // set the colors
@@ -345,10 +338,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
-    //TODO: update this to decide color based on pref
     private void setThemeColors(int i) {
         Log.d("Preferences", "theme value is " + String.valueOf(i));
         switch(i){
+            //cyan
             case 0:
                 color50 = getResources().getColor(R.color.cyan50);
                 color100 = getResources().getColor(R.color.cyan100);
@@ -358,6 +351,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 textView.setDropDownBackgroundResource(R.drawable.cyan500drawable);
                 break;
 
+            //indigo
             case 1:
                 color50 = getResources().getColor(R.color.indigo50);
                 color100 = getResources().getColor(R.color.indigo100);
@@ -366,7 +360,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 color2transparent = getResources().getColor(R.color.indigo2transparent);
                 textView.setDropDownBackgroundResource(R.drawable.indigo500drawable);
                 break;
-
+            //red
             case 2:
                 color50 = getResources().getColor(R.color.red50);
                 color100 = getResources().getColor(R.color.red100);
@@ -375,7 +369,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 color2transparent = getResources().getColor(R.color.red2transparent);
                 textView.setDropDownBackgroundResource(R.drawable.red500drawable);
                 break;
-
+            //amber
             case 3:
                 color50 = getResources().getColor(R.color.amber50);
                 color100 = getResources().getColor(R.color.amber100);
@@ -383,8 +377,31 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 color500clear = getResources().getColor(R.color.amber500clear);
                 color2transparent = getResources().getColor(R.color.amber2transparent);
                 textView.setDropDownBackgroundResource(R.drawable.amber500drawable);
+                break;
+
+            //orange
+            case 4:
+                color50 = getResources().getColor(R.color.orange50);
+                color100 = getResources().getColor(R.color.orange100);
+                color500 = getResources().getColor(R.color.orange500);
+                color500clear = getResources().getColor(R.color.orange500clear);
+                color2transparent = getResources().getColor(R.color.orange2transparent);
+                textView.setDropDownBackgroundResource(R.drawable.orange500drawable);
+                break;
+
+            //black
+            case 5:
+                color50 = getResources().getColor(R.color.black50);
+                color100 = getResources().getColor(R.color.black100);
+                color500 = getResources().getColor(R.color.black500);
+                color500clear = getResources().getColor(R.color.black500clear);
+                color2transparent = getResources().getColor(R.color.black2transparent);
+                textView.setDropDownBackgroundResource(R.drawable.black500drawable);
+                break;
 
         }
+
+        //sets the colors for every item after colors are loaded
         root.setBackgroundColor(color50);
         gridView.setBackgroundColor(color50);
         addKeywordField.setTextColor(color50);
@@ -409,194 +426,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-    /*private class LoadViewTask extends AsyncTask {
-
-        @Override
-        protected void onPreExecute(){
-            viewSwitcher = new ViewSwitcher(MainActivity.this);
-            viewSwitcher.addView(inflater.inflate(R.layout.activity_splash_screen, null, false) );
-            setContentView(viewSwitcher);
-        }
-
-
-        @Override
-        protected Object doInBackground(Object[] params) {
-
-
-            Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandler());
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                root = inflater.inflate(R.layout.activity_main, null, false);
-                gridView = (GridView) root.findViewById(R.id.grid_view);
-                slidingUpPanelLayout = (SlidingUpPanelLayout) root.findViewById(R.id.sliding_add_panel);
-                slidingUpPanelLayout.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
-                    @Override
-                    public void onPanelSlide(View view, float v) {
-
-                    }
-
-                    @Override
-                    public void onPanelCollapsed(View view) {
-                        gridView.setOnItemClickListener(selectModeItemClickListener);
-                        hideSoftKeyboard(root);
-
-                    }
-
-                    @Override
-                    public void onPanelExpanded(View view) {
-                        gridView.setOnItemLongClickListener(null);
-                        gridView.setOnItemClickListener(null);
-                        showSoftKeyboard(addKeywordField);
-                    }
-
-                    @Override
-                    public void onPanelAnchored(View view) {
-
-                    }
-
-                    @Override
-                    public void onPanelHidden(View view) {
-
-                    }
-                });
-                addKeywordButton = (ImageButton) slidingUpPanelLayout.findViewById(R.id.add);
-                addKeywordButton.setOnClickListener(MainActivity.this);
-                addKeywordField = (EditText) slidingUpPanelLayout.findViewById(R.id.edit_text);
-                setFilters(addKeywordField);
-                actionBar = getActionBar();
-
-
-                FacebookSdk.sdkInitialize(getApplicationContext());
-                TwitterAuthConfig authConfig = new TwitterAuthConfig("consumerKey", "consumerSecret");
-                Fabric.with(MainActivity.this, new Twitter(authConfig));
-                animation = new Animation();
-                inflater = getLayoutInflater();
-                images = getAllShownImagesPath(MainActivity.this);
-                Collections.reverse(images);
-                selected.clear();
-
-                inflater.inflate(R.layout.search_item, null).findViewById(R.id.search_item).setOnClickListener(MainActivity.this);
-
-                try {
-                    task = (DatabaseTask) new DatabaseTask().execute(new DatabaseTaskParams(activity, images));
-                    helper = task.get();
-
-                } catch (Exception e) {
-                    Log.e("DatabaseTask", "stack trace", e);
-                }
-
-                suggestions = helper.getKeywords();
-
-                //root is fragment layout root, frame layout
-                // ((FrameLayout) root).getForeground().setAlpha(0);
-                filter = new PorterDuffColorFilter(getResources().getColor(R.color.gray), PorterDuff.Mode.MULTIPLY);
-                placeholder = new ColorDrawable(getResources().getColor(R.color.cyan50));
-                onPressedColor = new ColorDrawable(getResources().getColor(R.color.cyan));
-                onPressedColor.setColorFilter(filter);
-
-
-                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-                imageSize = (int) (displayMetrics.widthPixels / displayMetrics.density); //(image size is in dips)
-
-                final int MIN_PIXELS = 2;
-                spaceSize = (imageSize % 3)/2 + MIN_PIXELS;
-
-                imageSize = (imageSize - MIN_PIXELS*2)/3; //16dp is padding
-
-                imageSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, imageSize,
-                        displayMetrics); //(image size now in pixels)
-                spaceSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, spaceSize,
-                        displayMetrics); //(space width now in pixels)
-
-
-                gridView.setAdapter(new ImageAdapter(MainActivity.this));
-                gridView.setOnItemClickListener(MainActivity.this);
-                gridView.setOnItemLongClickListener(MainActivity.this);
-                gridView.setColumnWidth(imageSize);
-                gridView.setNumColumns(3);
-                gridView.setHorizontalSpacing(spaceSize);
-                gridView.setVerticalSpacing(spaceSize);
-
-
-                actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO
-                                | ActionBar.DISPLAY_SHOW_HOME
-                        //| ActionBar.DISPLAY_HOME_AS_UP
-                );
-                selectLayout = inflater.inflate(R.layout.select_mode_actionbar, null);
-                searchLayout = inflater.inflate(R.layout.search_box, null);
-
-                selectLayout.findViewById(R.id.add_keyword_button).setOnClickListener(MainActivity.this);
-                selectLayout.findViewById(R.id.remove_iim_button).setOnClickListener(MainActivity.this);
-                selectLayout.findViewById(R.id.multi_share).setOnClickListener(MainActivity.this);
-
-
-                AutoCompleteTextView textView = (AutoCompleteTextView) searchLayout.findViewById(R.id.search_box);
-                textView.setFocusable(true);
-                textView.setClickable(true);
-                textView.setFocusableInTouchMode(true);
-                textView.setEnabled(true);
-
-
-
-                searchAdapter = new SearchAdapter(MainActivity.this, android.R.layout.simple_list_item_1, suggestions);
-                textView.setAdapter(searchAdapter);
-                textView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        // do something
-                        return false;
-                    }
-                });
-
-                actionBar.setCustomView(searchLayout);
-
-                textView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        Log.d("AutoComplete", "touched");
-                        AutoCompleteTextView view = (AutoCompleteTextView) v;
-
-                        if (event.getAction() == MotionEvent.ACTION_UP) {
-                            if (view.getCompoundDrawables()[2] != null) {
-                                if (event.getX() > view.getWidth() - view.getPaddingRight() - view.getCompoundDrawables()[2].getIntrinsicWidth()) {
-                                    toggleSearch(true, view);
-                                    Log.d("AutoComplete", "touched the x");
-                                } else {
-                                    toggleSearch(false, view);
-                                    Log.d("AutoComplete", "touched the searchbar");
-                                }
-                            } else {
-                                toggleSearch(false, view);
-                                Log.d("AutoComplete", "touched the searchbar");
-                            }
-                        }
-                        return true;
-                    }
-                });
-
-
-
-                textView.setOnKeyListener(enterKeyListener(textView, gridView));
-                    swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_refresh_layout);
-                swipeRefreshLayout.setOnRefreshListener(MainActivity.this);
-
-                }
-            });
-
-            return null;
-        }
-
-        @Override
-
-        protected void onPostExecute(Object result){
-            viewSwitcher.addView(root);
-            viewSwitcher.showNext();
-
-
-        }
-    }*/
 
 
     @Override
@@ -613,15 +442,31 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        //Hides the panel if its open
         if(slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED){
             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
         }
         switch(id) {
             case R.id.action_rebuild_database:
-                helper.rebuildDatabase();
+                //gets images/keywords again
+                setContentView(R.layout.activity_splash_screen);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        helper.rebuildDatabase();
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setContentView(root);
+                            }
+                        });
+                    }
+                }).start();
+                //helper.rebuildDatabase();
                 break;
 
             case R.id.action_choose_theme:
+                //Choses theme color
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.choose_color_dialog)
                         .setSingleChoiceItems(R.array.theme_color_choices, chosenThemeColor, new DialogInterface.OnClickListener() {
@@ -632,19 +477,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                                 setThemeColors(which);
                             }
                         });
-                        //set positive and negative buttons
-                        /*.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                chosenThemeColor = which;
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });*/
                 builder.create();
                 builder.show();
                 break;
@@ -653,10 +485,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case android.R.id.home:
                 if(actionBar.getCustomView().equals(selectLayout)) {
                     endItemSelectMode();
-
-
-
-
                 }else if(getFragmentManager().getBackStackEntryCount() != 0){
                     returnToMain();
                 }else if(searched){
@@ -668,13 +496,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return super.onOptionsItemSelected(item);
     }
 
-
+    //UI option setting when you return from search results
     public void returnFromSearchResults(){
         searched = false;
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME |  ActionBar.DISPLAY_USE_LOGO);
         updateGridView(gridView);
         toggleSearch(true, textView);
     }
+
+    //UI options/ animations when you return to main screen
     public void returnToMain(){
         getFragmentManager().popBackStack();
         YoYo.with(Techniques.ZoomIn).duration(SHORT_ANIM_DURATION).playOn(gridView);
@@ -695,18 +525,54 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Log.d("FragmentTransaction", String.valueOf(getFragmentManager().getBackStackEntryCount()));
 
     }
+
+    //Refreshing updates database
     @Override
     public void onRefresh() {
-        updateGridView(gridView);
-        helper.updateDatabase();
-        updateFilter();
-        selected.clear();
-        new Handler().postDelayed(new Runnable() {
+
+
+
+        final Thread refresh = new Thread(new Runnable(){
+            public void run(){
+                helper.updateDatabase();
+                updateFilter();
+                selected.clear();
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateGridView(gridView);
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+
+            }
+
+        });
+
+        refresh.start();
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                swipeRefreshLayout.setRefreshing(false);
+                refresh.start();
             }
-        }, 1000);
+        }, 1000);*/
+
+
+        /*new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateGridView(gridView);
+                helper.updateDatabase();
+                updateFilter();
+                selected.clear();
+            }
+        }, 1000);*/
+
+
+
+
+
+
     }
 
 
@@ -734,6 +600,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onBackPressed(){
         if(getFragmentManager().getBackStackEntryCount()!= 0){
             returnToMain();
+            openFromHere = true;
         }else if(selectMode) {
             endItemSelectMode();
         }else if(searched){
@@ -745,7 +612,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
 
-    @Override
+    /*@Override
     public void onStart(){
         super.onStart();
         try {
@@ -754,11 +621,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         } catch (Exception e) {
             Log.e("DatabaseTask", "stack trace", e);
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onStop() {
         super.onStop();
+        helper.close();
+    }*/
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
         helper.close();
     }
 
@@ -770,6 +643,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(event.getAction() == KeyEvent.ACTION_DOWN){
                     if(keyCode == KeyEvent.KEYCODE_ENTER){
+                        hideSoftKeyboard(gridView);
                         SearchAdapter sAdapter = (SearchAdapter) textView.getAdapter();
                         sAdapter.clear();
                         searched = true;
@@ -883,13 +757,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             checkmark = holder.checkmark;
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             file = new File(images.get(position));
-            //maybe todo: choose width, height, size based on file size: file.length()
+
 
             Picasso.with(activity)
                     .load(file)
                     .placeholder(placeholder)
                             //.transform(new BitmapTransform(480, 480))
-                    .resize(480, 480)
+                    //240p is it faster?
+                    .resize(240, 240)
                     .centerInside()
                     .into(imageView, new com.squareup.picasso.Callback() {
 
@@ -1081,7 +956,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View v, final int position, long id) {
-        //root.setPadding(0,0,0,0);
         Log.d("FragmentTransaction", String.valueOf(position));
         isRight = !(position % 3 == 0);
         parent.setOnItemLongClickListener(null);
