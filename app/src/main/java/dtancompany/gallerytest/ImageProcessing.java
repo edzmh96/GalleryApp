@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 /**
- * Created by david on 2015-06-30.
+ * Created by Edward on 2015-06-30.
  */
 public class ImageProcessing {
     final static int MAX_FACES = 20;

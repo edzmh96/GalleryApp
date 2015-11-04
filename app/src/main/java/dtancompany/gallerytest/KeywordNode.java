@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
- * Created by david on 2015-07-28.
+ * Created by Edward on 2015-07-28.
  */
 public class KeywordNode {
     boolean isRowStart;

@@ -8,7 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 /**
- * Created by david on 2015-07-27.
+ * Created by Edward on 2015-07-27.
  */
 public class RemoveIIMDialogFragment extends DialogFragment {
 

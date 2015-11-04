@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by david on 2015-08-11.
+ * Created by Edward on 2015-08-11.
  */
 public class ImagePagerAdapter extends FragmentStatePagerAdapter {
 

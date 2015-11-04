@@ -67,7 +67,7 @@ public class ImagePageFragment extends android.support.v4.app.Fragment
             b = this.activity.fullPlaceholder;
             this.activity.openFromHere = false;
 
-        }else if(!this.activity.openFromHere) {
+        }else{
             Bitmap d = BitmapFactory.decodeFile(mPath);
             d = resizeImage(d, 240);
             b = new BitmapDrawable(d);

@@ -3,7 +3,7 @@ package dtancompany.gallerytest;
 import android.provider.BaseColumns;
 
 /**
- * Created by david on 2015-07-13.
+ * Created by Edward on 2015-07-13.
  */
 public class KeywordSearchContract {
 

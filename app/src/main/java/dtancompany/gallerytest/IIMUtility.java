@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by david on 2015-06-18.
+ * Created by Edward on 2015-06-18.
  */
 public class IIMUtility {
     //TODO: should this class be a static utility, or should it need instances (with context)

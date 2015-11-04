@@ -7,7 +7,7 @@ import android.util.TypedValue;
 import android.widget.ScrollView;
 
 /**
- * Created by david on 2015-08-04.
+ * Created by Edward on 2015-08-04.
  */
 public class MyScrollView extends ScrollView {
     // 180dp to allow the user to see the last item in the keyword container when keyboard is up

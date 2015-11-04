@@ -19,7 +19,7 @@ import dtancompany.gallerytest.KeywordSearchContract.Keyword;
 
 
 /**
- * Created by david on 2015-07-14.
+ * Created by Edward on 2015-07-14.
  *
  */
 public class KeywordSearchDbHelper extends SQLiteOpenHelper {
