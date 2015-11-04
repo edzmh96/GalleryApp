@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -449,17 +450,30 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch(id) {
             case R.id.action_rebuild_database:
                 //gets images/keywords again
-                setContentView(R.layout.activity_splash_screen);
+
+                //regular dialog
+               /* final AlertDialog.Builder buildr = new AlertDialog.Builder(this);
+                buildr.setTitle("Rebuilding Database");
+                final AlertDialog dialog = buildr.create();
+                dialog.setCancelable(false);
+                dialog.show();*/
+
+                final ProgressDialog dialog = ProgressDialog.show(this, "Rebuilding Database", "Reading Image Keywords...", true);
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         helper.rebuildDatabase();
-                        MainActivity.this.runOnUiThread(new Runnable() {
+                        // dismiss
+                        //TODO: maybe make it so that it displays number of images read
+                        dialog.dismiss();
+                        //For changing background during update
+                        /*MainActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                setContentView(root);
+                                dialog.dismiss();
                             }
-                        });
+                        });*/
                     }
                 }).start();
                 //helper.rebuildDatabase();
@@ -525,6 +539,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Log.d("FragmentTransaction", String.valueOf(getFragmentManager().getBackStackEntryCount()));
 
     }
+
 
     //Refreshing updates database
     @Override
