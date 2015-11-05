@@ -79,8 +79,8 @@ public class PhotosFragment extends android.app.Fragment implements GestureDetec
     KeywordNode latest = null;
     Animator mCurrentAnimator;
 
-    private ViewPager pager;
     private ImagePagerAdapter adapter;
+    //Thread workerThread;
 
     public static PhotosFragment newInstance(int position){
         PhotosFragment pf = new PhotosFragment();
@@ -167,7 +167,7 @@ public class PhotosFragment extends android.app.Fragment implements GestureDetec
         layout = (RelativeLayout) inflater.inflate(R.layout.fragment_photos, container, false);
 
         //sets reference to pager view
-        pager = (ViewPager) layout.findViewById(R.id.pager);
+        ViewPager pager = (ViewPager) layout.findViewById(R.id.pager);
 
         //sets up adapter for pager
         adapter = new ImagePagerAdapter(activity.getSupportFragmentManager(),images);
@@ -180,6 +180,20 @@ public class PhotosFragment extends android.app.Fragment implements GestureDetec
                 keywordContainer.removeAllViews();
                 latest = null;
                 populateKeywordContainer();
+
+                // using threads (not sure if faster) - uncomment workerThread
+                /*if(workerThread != null) workerThread.interrupt();
+                workerThread = new Thread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                currentImageFile = new File(images.get(position));
+                                keywordContainer.removeAllViews();
+                                latest = null;
+                                populateKeywordContainer();
+                            }
+                        }
+                );*/
             }
         });
 
@@ -247,11 +261,8 @@ public class PhotosFragment extends android.app.Fragment implements GestureDetec
 
 
         //scale drawable
-        final Resources resources = getResources();
-        BitmapDrawable drawableFull = (BitmapDrawable) resources.getDrawable(R.drawable.ic_action_new, null);
-        Bitmap bitmap = drawableFull.getBitmap();
-        BitmapDrawable drawableScaled = new BitmapDrawable(resources, Bitmap.createScaledBitmap(bitmap, 60, 60, true));
-        editText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, drawableScaled, null);
+
+        editText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, activity.plusDrawableScaled, null);
 
         activity.setFilters(editText);
         editTextTouchListener = new EditTextOnTouchListener(editText, keywordContainer);
@@ -676,7 +687,7 @@ public class PhotosFragment extends android.app.Fragment implements GestureDetec
         }
         */
     }
-
+    // TODO: Container sometimes gives null?
     private KeywordNode findExtraBlockStart(KeywordNode rowStart) {
         KeywordNode curr = rowStart;
         TextView currentText = curr.textView;

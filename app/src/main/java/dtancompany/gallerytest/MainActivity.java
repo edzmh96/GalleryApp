@@ -10,9 +10,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -130,6 +133,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     TextView searchItem;
     RelativeLayout searchItemLayout;
     RelativeLayout addKeywordPanel;
+    Resources resources;
+    BitmapDrawable plusDrawableScaled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +161,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
             settings.edit().putBoolean("first_time", false).commit();
         }
+
+        resources = getResources();
+        BitmapDrawable plusDrawable = (BitmapDrawable) resources.getDrawable(R.drawable.ic_action_new, null);
+        Bitmap bitmap = plusDrawable.getBitmap();
+        plusDrawableScaled = new BitmapDrawable(resources, Bitmap.createScaledBitmap(bitmap, 60, 60, true));
 
         inflater = getLayoutInflater();
         Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandler());
@@ -247,10 +257,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
       //  searchItem.setBackgroundColor(color500);
         searchItem.setOnClickListener(this);
         //Sets gray on image click filter
-        filter = new PorterDuffColorFilter(getResources().getColor(R.color.gray), PorterDuff.Mode.MULTIPLY);
+        filter = new PorterDuffColorFilter(resources.getColor(R.color.gray), PorterDuff.Mode.MULTIPLY);
 
         //Sets image size/space sizes for gridview
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         imageSize = (int) (displayMetrics.widthPixels / displayMetrics.density); //(image size is in dips)
         final int MIN_PIXELS = 2;
         spaceSize = (imageSize % 3)/2 + MIN_PIXELS;
@@ -344,59 +354,58 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         switch(i){
             //cyan
             case 0:
-                color50 = getResources().getColor(R.color.cyan50);
-                color100 = getResources().getColor(R.color.cyan100);
-                color500 = getResources().getColor(R.color.cyan500);
-                color500clear = getResources().getColor(R.color.cyan500clear);
-                color2transparent = getResources().getColor(R.color.cyan2transparent);
+                color50 = resources.getColor(R.color.cyan50);
+                color100 = resources.getColor(R.color.cyan100);
+                color500 = resources.getColor(R.color.cyan500);
+                color500clear = resources.getColor(R.color.cyan500clear);
+                color2transparent = resources.getColor(R.color.cyan2transparent);
                 textView.setDropDownBackgroundResource(R.drawable.cyan500drawable);
                 break;
 
             //indigo
             case 1:
-                color50 = getResources().getColor(R.color.indigo50);
-                color100 = getResources().getColor(R.color.indigo100);
-                color500 = getResources().getColor(R.color.indigo500);
-                color500clear = getResources().getColor(R.color.indigo500clear);
-                color2transparent = getResources().getColor(R.color.indigo2transparent);
+                color50 = resources.getColor(R.color.indigo50);
+                color100 = resources.getColor(R.color.indigo100);
+                color500 = resources.getColor(R.color.indigo500);
+                color500clear = resources.getColor(R.color.indigo500clear);
+                color2transparent = resources.getColor(R.color.indigo2transparent);
                 textView.setDropDownBackgroundResource(R.drawable.indigo500drawable);
                 break;
             //red
             case 2:
-                color50 = getResources().getColor(R.color.red50);
-                color100 = getResources().getColor(R.color.red100);
-                color500 = getResources().getColor(R.color.red500);
-                color500clear = getResources().getColor(R.color.red500clear);
-                color2transparent = getResources().getColor(R.color.red2transparent);
+                color50 = resources.getColor(R.color.red50);
+                color100 = resources.getColor(R.color.red100);
+                color500 = resources.getColor(R.color.red500);
+                color500clear = resources.getColor(R.color.red500clear);
+                color2transparent = resources.getColor(R.color.red2transparent);
                 textView.setDropDownBackgroundResource(R.drawable.red500drawable);
                 break;
             //amber
             case 3:
-                color50 = getResources().getColor(R.color.amber50);
-                color100 = getResources().getColor(R.color.amber100);
-                color500 = getResources().getColor(R.color.amber500);
-                color500clear = getResources().getColor(R.color.amber500clear);
-                color2transparent = getResources().getColor(R.color.amber2transparent);
+                color50 = resources.getColor(R.color.amber50);
+                color100 = resources.getColor(R.color.amber100);
+                color500 = resources.getColor(R.color.amber500);
+                color500clear = resources.getColor(R.color.amber500clear);
+                color2transparent = resources.getColor(R.color.amber2transparent);
                 textView.setDropDownBackgroundResource(R.drawable.amber500drawable);
                 break;
 
             //orange
             case 4:
-                color50 = getResources().getColor(R.color.orange50);
-                color100 = getResources().getColor(R.color.orange100);
-                color500 = getResources().getColor(R.color.orange500);
-                color500clear = getResources().getColor(R.color.orange500clear);
-                color2transparent = getResources().getColor(R.color.orange2transparent);
+                color100 = resources.getColor(R.color.orange100);
+                color500 = resources.getColor(R.color.orange500);
+                color500clear = resources.getColor(R.color.orange500clear);
+                color2transparent = resources.getColor(R.color.orange2transparent);
                 textView.setDropDownBackgroundResource(R.drawable.orange500drawable);
                 break;
 
             //black
             case 5:
-                color50 = getResources().getColor(R.color.black50);
-                color100 = getResources().getColor(R.color.black100);
-                color500 = getResources().getColor(R.color.black500);
-                color500clear = getResources().getColor(R.color.black500clear);
-                color2transparent = getResources().getColor(R.color.black2transparent);
+                color50 = resources.getColor(R.color.black50);
+                color100 = resources.getColor(R.color.black100);
+                color500 = resources.getColor(R.color.black500);
+                color500clear = resources.getColor(R.color.black500clear);
+                color2transparent = resources.getColor(R.color.black2transparent);
                 textView.setDropDownBackgroundResource(R.drawable.black500drawable);
                 break;
 
@@ -940,7 +949,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }else{
             view.setCursorVisible(true);
             showSoftKeyboard(view);
-            view.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_action_cancel,null), null);
+            view.setCompoundDrawablesWithIntrinsicBounds(null, null, resources.getDrawable(R.drawable.ic_action_cancel,null), null);
         }
     }
 

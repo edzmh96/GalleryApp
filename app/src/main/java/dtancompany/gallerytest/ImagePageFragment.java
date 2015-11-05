@@ -59,16 +59,24 @@ public class ImagePageFragment extends android.support.v4.app.Fragment
 
         final int width = 2048; //arbitrarily picked
         final int height = 2048;
+        final int sampleWidth = 480;
+        final int sampleHeight = 480;
+
+        // TESTING PURPOSES
+        //fullImg.setImageDrawable(this.activity.fullPlaceholder);
 
         Activity activity = getActivity();
 
+        //TODO: MAKE THIS FASTER
+        //THIS IS THE DICK ASS SECTION THAT MAKES SWIPING AND LOADING SLOW AF
+        //----------------------------------------------------------//
         Drawable b;
         if(this.activity.openFromHere){
             b = this.activity.fullPlaceholder;
             this.activity.openFromHere = false;
 
         }else{
-            Bitmap d = BitmapFactory.decodeFile(mPath);
+            Bitmap d = decodeSampledBitmapFromResource(mPath, sampleWidth, sampleHeight);
             d = resizeImage(d, 240);
             b = new BitmapDrawable(d);
 
@@ -93,11 +101,52 @@ public class ImagePageFragment extends android.support.v4.app.Fragment
                     }
                 });
 
+
+        //----------------------------------------------------------//
+
         mDetector = new GestureDetectorCompat(activity, this);
         mDetector.setOnDoubleTapListener(this);
         fullImg.setOnTouchListener(this);
 
         return v;
+    }
+    public static Bitmap decodeSampledBitmapFromResource(String path,
+                                                         int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(path, options);
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
     }
 
     @Override
